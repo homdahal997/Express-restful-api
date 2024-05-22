@@ -33,8 +33,7 @@ router
             users.push(user);
             res.json(users[users.length - 1]);
         } else next(error(400, "Insufficient Data"));
-    });
-
+    });    
 router
     .route("/:id")
     .get((req, res, next) => {

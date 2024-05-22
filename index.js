@@ -37,7 +37,7 @@ apiKeys = ["perscholas", "ps-example", "hJAsknw-L198sAJD-l3kasx"];
 // This is why we attached the /api/ prefix
 // to our routing at the beginning!
 app.use("/api", function (req, res, next) {
-    var key = req.query["api-key"];
+    const key = req.query["api-key"];
 
     // Check for the absence of a key.
     if (!key) next(error(400, "API Key Required"));
