@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const users = require("../data/users");
+const posts = require("../data/posts");
 const error = require("../utilities/error");
 
 router
@@ -33,7 +34,20 @@ router
             users.push(user);
             res.json(users[users.length - 1]);
         } else next(error(400, "Insufficient Data"));
-    });    
+    });   
+    
+// Define a new route for getting all posts by a specific user
+router
+    .route("/:id/posts")
+    .get((req, res, next) => {
+        // Filter the posts array to only include posts where the userId matches the id parameter from the route
+        const userPosts = posts.filter((p) => p.userId == req.params.id);
+
+        // If any posts are found, return them as a JSON response
+        if (userPosts.length > 0) res.json(userPosts);
+        // If no posts are found, call the next middleware with an error
+        else next(error(404, "No posts found for this user"));
+    });   
 router
     .route("/:id")
     .get((req, res, next) => {
