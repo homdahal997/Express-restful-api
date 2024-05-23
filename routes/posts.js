@@ -6,7 +6,7 @@ const error = require("../utilities/error");
 
 router
     .route("/")
-    .get((req, res) => {
+    .get((req, res, next) => {
         const links = [
             {
                 href: "posts/:id",
@@ -14,7 +14,18 @@ router
                 type: "GET",
             },
         ];
+        if (req.query.userId) {
+            // Filter the posts array to only include posts where the userId matches the query parameter
+            const userPosts = posts.filter((p) => p.userId == req.query.userId);
 
+            // If any posts are found, return them as a JSON response
+            if (userPosts.length > 0) res.json(userPosts);
+            // If no posts are found, call the next middleware with an error
+            else next(error(404, "No posts found for this user"));
+        } else {
+            // If no userId is provided, return all posts
+            res.json(posts);
+        }
         res.json({ posts, links });
     })
     .post((req, res, next) => {
