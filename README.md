@@ -38,6 +38,8 @@ The following additional routes and any code necessary to make them work are imp
 - PATCH /comments/:id
 - DELETE /comments/:id
 - GET /comments?userId=<VALUE>
+
+### The following route are yet to be implemented.contribution to this route is highly appreciated.
 - GET /comments?postId=<VALUE>
 - GET /posts/:id/comments
 - GET /users/:id/comments
