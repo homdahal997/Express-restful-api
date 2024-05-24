@@ -82,4 +82,18 @@ router
         else next();
     });
 
+router
+    .route('/posts/:id/comments')
+        .get((req, res, next) => {
+            try {
+                const postComments = comments.filter(c => c.postId == req.params.id);
+                res.json(postComments);
+            } catch (error) {
+                next(error);
+            }
+        });
+
+    
+
+
 module.exports = router;
